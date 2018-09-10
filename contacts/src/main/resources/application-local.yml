@@ -10,16 +10,23 @@ spring:
   livereload:
     enabled: true
 
+embedded:
+  mongodb:
+    host: localhost
+    port: 1234
+
 mongo:
   sequenceQualifier: primaryMongoTemplate
   primary:
-    uri: mongodb://ms-article-admin:admin123@localhost:27017/ms-article?readPreference=primary
+    #uri: mongodb://ms-contact-admin:admin123@localhost:27017/ms-contact?readPreference=primary
+    uri: mongodb://${embedded.mongodb.host}:${embedded.mongodb.port}/ms-contact?readPreference=primary
     socketTimeout: 7000
     connectTimeout: 1500
     minHeartbeatFrequency: 25
     heartbeatSocketTimeout: 3000
   secondary:
-    uri: mongodb://ms-article-admin:admin123@localhost:27017/ms-article?readPreference=secondary
+    #uri: mongodb://ms-contact-admin:admin123@localhost:27017/ms-contact?readPreference=secondary
+    uri: mongodb://${embedded.mongodb.host}:${embedded.mongodb.port}/ms-contact?readPreference=secondary
     socketTimeout: 7000
     connectTimeout: 1500
     minHeartbeatFrequency: 25
@@ -44,7 +51,7 @@ management:
       show-details: always
 
 logging:
-  file: logs/${ms-article.display-name}.log
+  file: logs/${ms-contacts.display-name}.log
   pattern:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"

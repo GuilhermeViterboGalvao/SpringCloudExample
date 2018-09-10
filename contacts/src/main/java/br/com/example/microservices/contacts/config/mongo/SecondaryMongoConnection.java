@@ -3,6 +3,7 @@ package br.com.example.microservices.contacts.config.mongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.net.UnknownHostException;
 
 @Configuration
+@DependsOn("mongodProcess")
 @EnableMongoRepositories(basePackages = { "br.com.example.microservices.contacts.repository.secondary" }, mongoTemplateRef = "secondaryMongoTemplate")
 public class SecondaryMongoConnection extends AbstractMongoConnection {
 

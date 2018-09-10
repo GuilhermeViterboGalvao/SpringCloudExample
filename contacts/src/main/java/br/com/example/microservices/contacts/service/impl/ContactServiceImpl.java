@@ -6,6 +6,7 @@ import br.com.example.microservices.contacts.exception.ContactException;
 import br.com.example.microservices.contacts.repository.primary.ContactPrimaryRepository;
 import br.com.example.microservices.contacts.repository.secondary.ContactSecondaryRepository;
 import br.com.example.microservices.contacts.service.ContactService;
+import br.com.example.microservices.contacts.service.MongoSequenceService;
 import br.com.example.microservices.contacts.service.ValidateService;
 import br.com.example.microservices.contacts.service.params.ContactFindAllParams;
 import com.querydsl.core.BooleanBuilder;
@@ -33,10 +34,16 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ValidateService validateService;
 
+    @Autowired
+    private MongoSequenceService mongoSequenceService;
+
     @Override
     public Contact save(Contact contact) throws ContactException {
         log.info("save contact: {}", contact);
         validateService.validateSave(contact);
+        if (contact.getId() <= 0) {
+            contact.setId(mongoSequenceService.getNextId("contactSequence"));
+        }
         return contactPrimaryRepository.save(contact);
     }
 
