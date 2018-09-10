@@ -1,0 +1,17 @@
+**/target
+**/classes
+**/out
+**/logs
+**/pids
+**/dumps
+**.log
+########## InteliJ IDEA ##########
+*.iml
+.idea
+########## Eclipse IDEA ##########
+.settings
+.classpath
+.project
+.metadata
+########## MAC OS ##########
+**.DS_Store

@@ -1,0 +1,108 @@
+ms-zuul:
+  display-name: ms-zuul
+
+spring:
+  banner:
+    location: classpath:banner.txt
+  security:
+    user:
+      roles: ACTUATOR
+  livereload:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: refresh, mappings, httptrace, metrics, heapdump, loggers, info, env, logfile, health, configprops
+    enabled-by-default: true
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  file: logs/${ms-zuul.display-name}.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: INFO
+    com:
+      cnova: INFO
+    org:
+      springframework:
+        web: INFO
+
+messages:
+  basename: messages
+  default:
+    country: BR
+    language: PT
+    encoding: UTF-8
+
+# Exemplo
+#zuul:
+#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#  routes:
+#    mp-bff-dev:
+#      sensitiveHeaders:
+#    mp-compras-dev:
+#      serviceId: mp-compras-local
+#    mp-lojista-hlg:
+#      serviceId: mp-lojista
+#    mp-galpao-lojista:
+#      url: http://hlg-oms.api-cnova.com.br
+
+# Documentation for Spring-Boot starter
+# https://github.com/javamelody/javamelody/tree/master/javamelody-for-spring-boot
+javamelody:
+  # Initialization parameters for JavaMelody
+  # See: https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
+  init-parameters:
+    # log http requests
+    log: true
+
+    # to exclude images, css, fonts and js urls from the monitoring:
+    #url-exclude-pattern: (/webjars/.*|/css/.*|/images/.*|/fonts/.*|/js/.*)
+
+    # to add basic auth:
+    authorized-users: admin:admin123
+
+    # to change the default storage directory:
+    #storage-directory: /tmp/javamelody
+
+    # to change the default "/monitoring" path
+    #monitoring-path: /admin/performance
+
+# Link do guide de configuração do Hystrix
+# https://github.com/Netflix/Hystrix/wiki/Configuration
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          thread:
+            interruptOnCancel: true
+            interruptOnTimeout: true
+            timeoutInMilliseconds: 10000
+      fallback:
+        enabled: true
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 20
+        sleepWindowInMilliseconds: 5000
+        errorThresholdPercentage: 50
+        forceOpen: false
+        forceClosed: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+          numBuckets: 10
+        rollingPercentile:
+          enabled: true
+          timeInMilliseconds: 60000
+          numBuckets: 6

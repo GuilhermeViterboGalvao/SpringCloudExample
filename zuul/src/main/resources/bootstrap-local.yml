@@ -1,0 +1,27 @@
+server:
+  port: 8003
+  servlet:
+    application-display-name: ms-zuul
+
+spring:
+  application:
+    name: ${server.servlet.application-display-name}
+  cloud:
+    config:
+      enabled: false # Se quiser utilizar confg remota mudar para TRUE
+      label: local   # O label representa a branch do git
+      discovery:
+        enabled: false
+        serviceId: ms-configuration
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8002/eureka/
+  instance:
+    appname: ${spring.application.name}
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    preferIpAddress: true
+    nonSecurePort: ${server.port}
+    managementPort: ${server.port}

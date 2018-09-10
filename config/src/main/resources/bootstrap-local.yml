@@ -1,0 +1,31 @@
+server:
+  port: 8001
+  servlet:
+    application-display-name: ms-configuration
+
+spring:
+  application:
+    name: ${server.servlet.application-display-name}
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+          uri: /home/guilherme/configuration-resources-local/
+          #uri: http://@bitbucket.viavarejo.com.br/scm/mktcom/mp-configuration-resources-dev.git
+          #username: jenkins
+          #password: jenkins
+          #default-label: dev
+          #basedir: repo-cache
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8002/eureka/
+  instance:
+    appname: ${spring.application.name}
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    preferIpAddress: true
+    nonSecurePort: ${server.port}
+    managementPort: ${server.port}
