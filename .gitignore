@@ -5,6 +5,7 @@
 **/pids
 **/dumps
 **.log
+**/configuration-resources-local
 ########## InteliJ IDEA ##########
 *.iml
 .idea
@@ -15,3 +16,4 @@
 .metadata
 ########## MAC OS ##########
 **.DS_Store
+contacts/src/test/

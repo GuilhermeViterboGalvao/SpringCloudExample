@@ -24,10 +24,6 @@
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-el</artifactId>
                 </exclusion>
-                <!--<exclusion>-->
-                    <!--<artifactId>guava</artifactId>-->
-                    <!--<groupId>com.google.guava</groupId>-->
-                <!--</exclusion>-->
             </exclusions>
         </dependency>
 

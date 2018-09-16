@@ -8,8 +8,8 @@ spring:
     name: ${server.servlet.application-display-name}
   cloud:
     config:
-      enabled: false # Se quiser utilizar confg remota mudar para TRUE
-      label: local   # O label representa a branch do git
+      enabled: false # If you would like to use your remote config, just change the value for TRUE
+      label: local   # Here is the name of the git branch
       discovery:
         enabled: false
         serviceId: ms-configuration

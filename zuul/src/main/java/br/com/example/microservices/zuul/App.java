@@ -1,9 +1,9 @@
 package br.com.example.microservices.zuul;
 
 import br.com.example.microservices.zuul.config.EurekaClientConfiguration;
+import br.com.example.microservices.zuul.config.HystrixConfiguration;
 import br.com.example.microservices.zuul.config.ModuleConfiguration;
 import br.com.example.microservices.zuul.config.ZuulProxyConfiguration;
-import com.netflix.hystrix.config.HystrixConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;

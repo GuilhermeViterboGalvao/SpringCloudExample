@@ -11,7 +11,7 @@ spring:
       server:
         bootstrap: true
         git:
-          uri: /home/guilherme/configuration-resources-local/
+          uri: /Users/Guilherme/git/microservices/configuration-resources-local/
           #uri: http://@bitbucket.viavarejo.com.br/scm/mktcom/mp-configuration-resources-dev.git
           #username: jenkins
           #password: jenkins
