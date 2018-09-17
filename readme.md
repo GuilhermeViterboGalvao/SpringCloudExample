@@ -1,6 +1,6 @@
 # Example of Microservices with Spring Cloud and Netflix Oss
 
-###Just run the start-all.sh script and enjoy =)
+### Just run the start-all.sh script and enjoy =)
 
 ```shell
 git clone https://github.com/GuilhermeViterboGalvao/SpringCloudExample
