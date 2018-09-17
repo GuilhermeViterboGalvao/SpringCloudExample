@@ -1,7 +1,7 @@
 server:
   port: 8001
   servlet:
-    application-display-name: ms-configuration
+    application-display-name: ms-configuration-dev
 
 spring:
   application:

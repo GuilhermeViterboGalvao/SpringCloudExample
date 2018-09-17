@@ -15,6 +15,12 @@
 
     <dependencies>
 
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Spring Cloud Netflix -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -73,7 +79,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>br.com.jpublisher.configuration.App</mainClass>
+                            <mainClass>br.com.example.microservices.config.App</mainClass>
                             <classifier>exec</classifier>
                         </configuration>
                     </execution>
