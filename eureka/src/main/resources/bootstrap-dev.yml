@@ -1,25 +1,25 @@
 server:
-  port: 8001
+  port: 8002
   servlet:
-    application-display-name: ms-configuration
+    application-display-name: ms-eureka-dev
 
 spring:
   application:
     name: ${server.servlet.application-display-name}
   cloud:
     config:
-      server:
-        bootstrap: true
-        git:
-          uri: https://github.com/GuilhermeViterboGalvao/ExampleOfRemoteConfig.git
-          default-label: dev
-          #username: USERNAME
-          #password: PASSWORD
-          #basedir: repo-cache
+      enabled: true
+      label: dev
+      discovery:
+        enabled: true
+        serviceId: ms-configuration-dev
 
 eureka:
   client:
-    enabled: false
+    registerWithEureka: false
+    fetch-registry: false # Only for localhost
+    serviceUrl:
+      defaultZone: https://localhost:8002/eureka/
   instance:
     appname: ${spring.application.name}
     leaseRenewalIntervalInSeconds: 1

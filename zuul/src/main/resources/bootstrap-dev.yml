@@ -1,20 +1,23 @@
 server:
-  port: 8004
+  port: 8003
   servlet:
-    application-display-name: ms-contacts-local
+    application-display-name: ms-zuul-dev
 
 spring:
   application:
     name: ${server.servlet.application-display-name}
   cloud:
     config:
-      enabled: false
+      enabled: true
+      label: dev
       discovery:
-        enabled: false
+        enabled: true
+        serviceId: ms-configuration-dev
 
 eureka:
   client:
-    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8002/eureka/
   instance:
     appname: ${spring.application.name}
     leaseRenewalIntervalInSeconds: 1

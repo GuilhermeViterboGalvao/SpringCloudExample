@@ -19,7 +19,8 @@ spring:
 
 eureka:
   client:
-    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8002/eureka/
   instance:
     appname: ${spring.application.name}
     leaseRenewalIntervalInSeconds: 1

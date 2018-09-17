@@ -70,19 +70,6 @@ messages:
     language: PT
     encoding: UTF-8
 
-# Exemplo
-#zuul:
-#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-#  routes:
-#    mp-bff-dev:
-#      sensitiveHeaders:
-#    mp-compras-dev:
-#      serviceId: mp-compras-local
-#    mp-lojista-hlg:
-#      serviceId: mp-lojista
-#    mp-galpao-lojista:
-#      url: http://hlg-oms.api-cnova.com.br
-
 # Documentation for Spring-Boot starter
 # https://github.com/javamelody/javamelody/tree/master/javamelody-for-spring-boot
 javamelody:

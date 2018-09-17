@@ -9,10 +9,8 @@ spring:
   cloud:
     config:
       enabled: false # If you would like to use your remote config, just change the value for TRUE
-      label: local   # Here is the name of the git branch
       discovery:
         enabled: false
-        serviceId: ms-configuration
 
 eureka:
   client:
