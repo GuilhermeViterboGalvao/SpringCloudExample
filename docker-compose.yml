@@ -1,0 +1,11 @@
+app:
+  build: .
+  ports:
+    - "8001:8001"
+    - "8002:8002"
+    - "8003:8003"
+    - "8004:8004"
+  volumes:
+    - ./:/app
+    - ~/.m2:/root/.m2
+  command: bash -c "mvn clean install; ./start-all.sh; bash"

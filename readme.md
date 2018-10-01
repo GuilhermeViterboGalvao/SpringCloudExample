@@ -8,6 +8,12 @@ chmod +x start-all.sh
 ./start-all.sh
 ```
 
+### Now with Docker
+```shell
+docker-compose run --rm --service-ports app
+```
+
+
 ### For more information access:
 * Spring Cloud Config: [Config Server](https://github.com/spring-cloud-samples/configserver) and [Config Client](https://github.com/spring-cloud-samples/customers-stores);
 * Netflix Zuul: [Get started](https://spring.io/guides/gs/routing-and-filtering/) and [docs](https://cloud.spring.io/spring-cloud-netflix/multi/multi__router_and_filter_zuul.html);
