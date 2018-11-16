@@ -9,6 +9,8 @@ import br.com.example.microservices.contacts.service.ContactService;
 import br.com.example.microservices.contacts.service.MongoSequenceService;
 import br.com.example.microservices.contacts.service.ValidateService;
 import br.com.example.microservices.contacts.service.params.ContactFindAllParams;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.querydsl.core.BooleanBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +40,30 @@ public class ContactServiceImpl implements ContactService {
     private MongoSequenceService mongoSequenceService;
 
     @Override
+    @HystrixCommand(
+        threadPoolKey = "ThreadPool[ContactServiceImpl.save]",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize",     value = "10"),
+            @HystrixProperty(name = "maxQueueSize", value = "5")
+        }
+    )
     public Contact save(Contact contact) throws ContactException {
         log.info("save contact: {}", contact);
         validateService.validateSave(contact);
-        if (contact.getId() <= 0) {
+        if (contact.getId() == null || contact.getId() <= 0) {
             contact.setId(mongoSequenceService.getNextId("contactSequence"));
         }
         return contactPrimaryRepository.save(contact);
     }
 
     @Override
+    @HystrixCommand(
+        threadPoolKey = "ThreadPool[ContactServiceImpl.delete]",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize",     value = "10"),
+            @HystrixProperty(name = "maxQueueSize", value = "5")
+        }
+    )
     public void delete(Contact contact) throws ContactException {
         log.info("delete contact: {}", contact);
         validateService.validateDelete(contact);
@@ -55,11 +71,25 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    @HystrixCommand(
+        threadPoolKey = "ThreadPool[ContactServiceImpl.findById]",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize",     value = "10"),
+            @HystrixProperty(name = "maxQueueSize", value = "5")
+        }
+    )
     public Optional<Contact> findById(Long id) {
         return contactSecondaryRepository.findById(id);
     }
 
     @Override
+    @HystrixCommand(
+        threadPoolKey = "ThreadPool[ContactServiceImpl.findAll]",
+        threadPoolProperties = {
+            @HystrixProperty(name = "coreSize",     value = "30"),
+            @HystrixProperty(name = "maxQueueSize", value = "10")
+        }
+    )
     public Page<Contact> findAll(ContactFindAllParams params) throws ContactException {
         validateService.validateParams(params);
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -70,7 +100,7 @@ public class ContactServiceImpl implements ContactService {
             booleanBuilder.and(QContact.contact.name.eq(params.getName()));
         }
         if (params.getPhone() != null && !params.getPhone().isEmpty()) {
-            booleanBuilder.and(QContact.contact.name.eq(params.getPhone()));
+            booleanBuilder.and(QContact.contact.phone.eq(params.getPhone()));
         }
         log.info("findAll QUERY: {}", booleanBuilder.toString());
         log.info("findAll OFFSET={} and LIMIT={}", params.getOffset(), params.getLimit());
